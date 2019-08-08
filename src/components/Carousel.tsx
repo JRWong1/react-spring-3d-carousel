@@ -49,7 +49,7 @@ function mod(a: number, b: number): number {
 class Carousel extends Component<IProps, IState> {
   state: IState = {
     index: 0,
-    goToSlide: null,
+    goToSlide: 0,
     prevPropsGoToSlide: 0,
     newSlide: false
   };
@@ -187,14 +187,35 @@ class Carousel extends Component<IProps, IState> {
         <NavigationButtons>
           <img
             src={leftNavigation}
-            onClick={() => this.moveSlide(-1)}
-            style={{ marginRight: "2rem" }}
+            onClick={() => {
+              this.moveSlide(-1);
+              if (this.state.goToSlide === 0){
+                  this.setState(() =>({
+                    goToSlide: this.props.slides.length - 1
+                    }));
+                } else{
+                  this.setState(prevState =>({
+                    goToSlide: prevState.goToSlide - 1
+                    }));
+                }
+              }
+            }
           />
 
           <img
             src={rightNavigation}
-            onClick={() => this.moveSlide(1)}
-            style={{ marginLeft: "2rem" }}
+            onClick={() => {
+              this.moveSlide(1)
+              if (this.state.goToSlide === this.props.slides.length){
+                  this.setState(() =>({
+                    goToSlide: 0
+                    }));
+                } else{
+                  this.setState(prevState =>({
+                    goToSlide: prevState.goToSlide + 1
+                    }));
+                }
+            }}
           />
         </NavigationButtons>
       );
