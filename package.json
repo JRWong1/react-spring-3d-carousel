@@ -10,7 +10,6 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "dev": "webpack-dev-server --mode development",
-    "prepare": "npm run build",
     "build": "rimraf dist && webpack --mode production"
   },
   "keywords": [
